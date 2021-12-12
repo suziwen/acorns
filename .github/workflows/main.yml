@@ -1,0 +1,21 @@
+name: Sculpting Action Publish
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'posts/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - uses: enriikke/gatsby-gh-pages-action@v2
+        with:
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          deploy-branch: gh-pages
+          gatsby-args: -- --prefix-paths
+        env:
+          GITALK_CREATE_ISSUE_TOKEN: ${{ secrets.ACCESS_TOKEN }}
